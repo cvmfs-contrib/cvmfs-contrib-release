@@ -1,6 +1,8 @@
 Name:           cvmfs-contrib-release
 Version:        1.0
-Release:        1%{?dist}
+# The release_prefix macro is used in the OBS prjconf, don't change its name
+%define release_prefix 2
+Release:        %{release_prefix}%{?dist}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
 
 Group:          System Environment/Base
@@ -51,5 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 03 2017 Dave Dykstra <dwd@fnal.gov>> - 1.0-2
+- Define %release_prefix for OBS. see
+    https://en.opensuse.org/openSUSE:Build_Service_prjconf#Release
+
 * Fri Nov 03 2017 Dave Dykstra <dwd@fnal.gov>> - 1.0-1
 - Initial creation
