@@ -1,7 +1,7 @@
 Name:           cvmfs-contrib-release
-Version:        1.0
+Version:        1.1
 # The release_prefix macro is used in the OBS prjconf, don't change its name
-%define release_prefix 2
+%define release_prefix 1
 Release:        %{release_prefix}%{?dist}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
 
@@ -35,8 +35,10 @@ cd rpm
 
 #GPG Key
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
-install -pm 644 repomd.xml.key.%{rhel} \
+install -pm 644 contrib.key.%{rhel} \
     $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
+install -pm 644 contrib-testing.key.%{rhel} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB-TESTING
 
 # yum
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
@@ -53,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 03 2017 Dave Dykstra <dwd@fnal.gov>> - 1.1-1
+- Add contrib-testing repo, disabled by default
+
 * Fri Nov 03 2017 Dave Dykstra <dwd@fnal.gov>> - 1.0-2
 - Define %release_prefix for OBS. see
     https://en.opensuse.org/openSUSE:Build_Service_prjconf#Release
