@@ -1,0 +1,7 @@
+[cvmfs-contrib]
+name=CernVM Filesystem Contributions
+type=rpm-md
+baseurl=http://download.opensuse.org/repositories/home:/cvmfs:/contrib/CentOS_{rhel}/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
+enabled=1
