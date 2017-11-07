@@ -11,5 +11,5 @@ name=CernVM Filesystem Contributions testing
 type=rpm-md
 baseurl=http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/CentOS_{rhel}/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB-TESTING
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 enabled=0

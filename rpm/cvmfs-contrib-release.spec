@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.1
+Version:        1.2
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 Release:        %{release_prefix}%{?dist}
@@ -31,18 +31,14 @@ repository configuration for yum.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-cd rpm
-
 #GPG Key
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
-install -pm 644 contrib.key.%{rhel} \
+install -pm 644 obs-signing-key.pub \
     $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
-install -pm 644 contrib-testing.key.%{rhel} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB-TESTING
 
 # yum
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
-bash -c "install -m 644 <(sed 's/{rhel}/%{rhel}/' cvmfs-contrib.repo) \
+bash -c "install -m 644 <(sed 's/{rhel}/%{rhel}/' rpm/cvmfs-contrib.repo) \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo"
 
 %clean
@@ -55,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov 07 2017 Dave Dykstra <dwd@fnal.gov>> - 1.2-1
+- Use a common signing key
+
 * Fri Nov 03 2017 Dave Dykstra <dwd@fnal.gov>> - 1.1-1
 - Add contrib-testing repo, disabled by default
 
