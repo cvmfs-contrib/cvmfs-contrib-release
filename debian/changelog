@@ -1,0 +1,5 @@
+cvmfs-contrib-release (0.1.0) stable; urgency=low
+
+  * Place holder; this file is updated by build.sh and by OBS debtransform
+
+ -- Dave Dykstra <dwd@fnal.gov>  Fri, 24 Feb 2017 18:00:00 +0000
