@@ -17,6 +17,8 @@ echo "# created by $ME, do not edit by hand"
 # The following two lines are OBS "magic" to use the tarball from the rpm
 echo "Debtransform-Tar: ${PKG}-${VERSION}.tar.gz"
 #echo "Debtransform-Files-Tar: "
+# This sets the release number (after the dash) an OBS build version"
+echo "Debtransform-Release: 1"
 echo "Format: 1.0"
 echo "Version: ${VERSION}.${RPMREL}"
 echo "Binary: $PKG"
