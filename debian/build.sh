@@ -19,7 +19,7 @@ if [ $# -ne 0 ]; then
 fi
 
 workdir=/tmp/build-$PKG
-srctree=$(readlink --canonicalize ../..)
+srctree=$(readlink --canonicalize ..)
 
 if [ "$(ls -A $workdir 2>/dev/null)" != "" ]; then
   echo "$workdir must be empty"
@@ -37,13 +37,15 @@ echo "done"
 echo -n "initializing build environment... "
 mkdir ${workdir}/src/$PKG
 cp -R $srctree/* ${workdir}/src/$PKG
-mkdir ${workdir}/src/$PKG/debian
-cp -R ${workdir}/tmp/debian/* ${workdir}/src/$PKG/debian
 echo "done"
 
 echo -n "figuring out version number from rpm packaging... "
 upstream_version="`sed -n 's/^Version: //p' ../rpm/$PKG.spec`"
-upstream_release="`sed -n 's/^Release: \([^%]*\).*/\1/p' ../rpm/$PKG.spec`"
+upstream_release="$(grep '^%define release_prefix' ../rpm/$PKG.spec | awk '{print $3}')"
+if [ -z "$upstream_release" ]; then
+    upstream_release="$(grep '^Release:' ../rpm/$PKG.spec | awk '{print $2}' | cut -d% -f1)"
+fi
+
 echo "done: $upstream_version.$upstream_release"
 
 echo "building..."
