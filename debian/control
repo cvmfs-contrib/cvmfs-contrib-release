@@ -3,7 +3,6 @@ Maintainer: Dave Dykstra <dwd@fnal.gov>
 Section: utils
 Priority: extra
 Standards-Version: 3.9.3.1
-Depends: lsb-release
 Build-Depends: debhelper (>= 9), make
 
 Package: cvmfs-contrib-release
