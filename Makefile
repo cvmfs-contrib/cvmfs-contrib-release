@@ -7,7 +7,6 @@ all: # nothing to build
 
 install:
 	mkdir -p ${DESTDIR}/etc/apt/sources.list.d
-        echo "deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$NAMEVER ./" >${DESTDIR}/etc/apt/sources.list.d/cvmfs-contrib.list
-        echo "# deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/$NAMEVER ./" >>${DESTDIR}/etc/apt/sources.list.d/cvmfs-contrib.list
+	NAMEVER="`./getosnamever.sh`"; (echo "deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$$NAMEVER ./"; echo "# deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$$NAMEVER ./") >${DESTDIR}/etc/apt/sources.list.d/cvmfs-contrib.list
 	mkdir -p ${DESTDIR}/etc/apt/trusted.gpg.d
-	cp obs-signing-key.pub ${DESTDIR}/etc/apt/trusted.gpg.d/cvmfs-contrib.gpg
+	cp cvmfs-contrib.gpg ${DESTDIR}/etc/apt/trusted.gpg.d/
