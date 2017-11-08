@@ -1,8 +1,9 @@
 Name:           cvmfs-contrib-release
-Version:        1.2
+Version:        1.3
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
-Release:        %{release_prefix}%{?dist}
+# %{?dist} is left off intentionally; this rpm works on multiple OS releases
+Release:        %{release_prefix}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
 
 Group:          System Environment/Base
@@ -19,7 +20,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 
-Requires:       redhat-release >= %{rhel}
+Requires:       /usr/bin/lsb_release
 
 %description
 This package contains the CernVM FileSystem Contrib packages
@@ -37,20 +38,47 @@ install -pm 644 obs-signing-key.pub \
     $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 
 # yum
+# Enable the same rpm to be installed on multiple OS versions by
+#   installing all possible .repo files in /usr/share and symlinking
+#   the right one in place.  Only the major OS release number can
+#   be used, so can't use $releasevar inside .repo file.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
-bash -c "install -m 644 <(sed 's/{rhel}/%{rhel}/' rpm/cvmfs-contrib.repo) \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo"
+mkdir -p $RPM_BUILD_ROOT%{_datarootdir}/%{name}
+for RHEL in 6 7; do
+  # make it mode 444 so hopefully admins won't accidentally edit it
+  #  without breaking the symlink and making a copy
+  bash -c "install -m 444 <(sed s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo) \
+      $RPM_BUILD_ROOT%{_datarootdir}/%{name}/cvmfs-contrib-el$RHEL.repo"
+done
+# this is just because a default is needed for %ghost files; the real
+#   one is installed in the %post rule
+ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el%{rhel}.repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) /etc/yum.repos.d/*
-/etc/pki/rpm-gpg/*
+%dir %{_sysconfdir}/yum.repos.d
+%ghost %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
+%{_sysconfdir}/pki/rpm-gpg/*
+%{_datarootdir}/%{name}
 
+%post
+REPO="%{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo"
+if [ -L $REPO ]; then
+    rm $REPO
+fi
+if [ ! -e $REPO ]; then
+    ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el`lsb_release -rs|cut -d. -f1`.repo %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
+fi
 
 %changelog
+* Wed Nov 08 2017 Dave Dykstra <dwd@fnal.gov>> - 1.3-1
+- Make this rpm installable on both el6 & el7 by having both versions of
+  the .repo file available and symlinking to the right one at install
+  time.
+
 * Tue Nov 07 2017 Dave Dykstra <dwd@fnal.gov>> - 1.2-1
 - Use a common signing key
 
