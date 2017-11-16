@@ -25,7 +25,7 @@ done
 echo "copying the files to be packaged in place..."
 version=$(cat ${CVMFS_SOURCE_LOCATION}/rpm/cvmfs-contrib-release.spec | grep ^Version: | awk '{print $2}')
 (cd ${CVMFS_SOURCE_LOCATION} && \
-  git archive -v --prefix cvmfs-contrib-release-${version}/ --format tar . \
+  git archive -v --prefix cvmfs-contrib-release-${version}/ --format tar HEAD \
   | gzip -c > ${CVMFS_RESULT_LOCATION}/SOURCES/cvmfs-contrib-release-${version}.tar.gz)
 
 echo "switching to ${CVMFS_RESULT_LOCATION}..."
