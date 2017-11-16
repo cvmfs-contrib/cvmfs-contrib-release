@@ -8,6 +8,12 @@ set -e
 
 SCRIPT_LOCATION=$(cd "$(dirname "$0")"; pwd)
 
+die() {
+  local msg="$1"
+  echo "$msg"
+  exit 1
+}
+
 if [ $# -lt 2 ]; then
   echo "Usage: $0 <CernVM-FS source directory> <build result location>"
   echo "This script builds the default CernVM-FS debian configuration package"
