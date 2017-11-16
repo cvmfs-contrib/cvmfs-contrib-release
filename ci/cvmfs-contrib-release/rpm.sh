@@ -8,7 +8,7 @@ set -e
 
 SCRIPT_LOCATION=$(cd "$(dirname "$0")"; pwd)
 
-if [ $# -ne 2 ]; then
+if [ $# -lt 2 ]; then
   echo "Usage: $0 <CernVM-FS source directory> <build result location>"
   echo "This script builds the CernVM-FS release RPM package"
   exit 1
