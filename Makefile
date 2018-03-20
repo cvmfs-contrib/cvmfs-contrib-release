@@ -9,8 +9,8 @@ install:
 	mkdir -p ${DESTDIR}/usr/share/cvmfs-contrib-release
 	for OSVER in Ubuntu_14.04 Ubuntu_16.04 Ubuntu_17.04 Debian_8.0 Debian_9.0; do \
 	    (echo "# Do not edit.  Remove symlink and make a copy in /etc/apt/sources.list.d"; \
-	    echo "deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$$OSVER ./"; \
-	    echo "# deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/$$OSVER ./"; \
+	    echo "deb http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib/$$OSVER ./"; \
+	    echo "# deb http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-testing/$$OSVER ./"; \
 	    ) >${DESTDIR}/usr/share/cvmfs-contrib-release/cvmfs-contrib-$$OSVER.list; \
 	done
 	mkdir -p ${DESTDIR}/etc/apt/trusted.gpg.d
