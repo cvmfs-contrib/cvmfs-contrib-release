@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.3
+Version:        1.4
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,10 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Mon Mar 19 2018 Dave Dykstra <dwd@fnal.gov>> - 1.4-1
+- Change repo urls to downloadcontent.opensuse.org to avoid problems
+  with some mirrors referenced by download.opensuse.org.
+
 * Wed Nov 08 2017 Dave Dykstra <dwd@fnal.gov>> - 1.3-1
 - Make this rpm installable on both el6 & el7 by having both versions of
   the .repo file available and symlinking to the right one at install
