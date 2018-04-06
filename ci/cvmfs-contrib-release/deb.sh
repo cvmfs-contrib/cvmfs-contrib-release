@@ -26,8 +26,19 @@ CVMFS_RESULT_LOCATION="$2"
 echo "switching to the debian source directory..."
 cd ${CVMFS_SOURCE_LOCATION}/debian
 
+# read the version number from the rpm spec file
+PKG="`sed -n 's/^Source: //p' control`"
+SPECFILE="../rpm/$PKG.spec"
+RPMREL="$(grep '^%define release_prefix' $SPECFILE | awk '{print $3}')"
+if [ -z "$RPMREL" ]; then
+    RPMREL="$(grep '^Release:' $SPECFILE | awk '{print $2}' | cut -d% -f1)"
+fi
+VERSION="$(grep ^Version: $SPECFILE | awk '{print $2}').$RPMREL"
+echo "setting version number to $VERSION"
+dch -v $VERSION -M "bumped version number"
+
 echo "running the debian package build..."
-debuild --no-tgz-check -us -uc # -us -uc == skip signing
+debuild --no-lintian --no-tgz-check -us -uc # -us -uc == skip signing
 mv ${CVMFS_SOURCE_LOCATION}/../cvmfs-contrib-release_* ${CVMFS_RESULT_LOCATION}/
 
 echo "switching back to the source directory..."
