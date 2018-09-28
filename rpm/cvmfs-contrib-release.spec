@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.5
+Version:        1.6
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Thu Sep 27 2018 Dave Dykstra <dwd@fnal.gov>> - 1.6-1
+- Add Ubuntu_18.04
+
 * Wed Jul 18 2018 Dave Dykstra <dwd@fnal.gov>> - 1.5-1
 - Add a comment referring to download.opensuse.org as a browsable alternate
 
