@@ -30,7 +30,21 @@ case "$1" in
 	    *)      subver="0";;
 	esac
 	namever="${basename}_${basever}.${subver}"
-	listsrc=/usr/share/cvmfs-contrib-release/cvmfs-contrib-$namever.list
+	listpfx="/usr/share/cvmfs-contrib-release/cvmfs-contrib-"
+	listsrc=${listpfx}${namever}.list
+	if [ ! -f $listsrc ]; then
+	    wantedver="${basever}.${subver}"
+	    gotver="`(echo $wantedver;ls ${listpfx}${basename}_* 2>/dev/null|sed 's/.*_//;s/\.list//')|sort -n|grep -B 1 "^$wantedver"|head -1`"
+	    if [ -n "$gotver" ] && [ "$gotver" != "$wantedver" ]; then
+		# falling back to an older version
+		gotnamever="${basename}_${gotver}"
+	    else
+		# pick the oldest one listed
+		gotnamever="`ls ${listpfx}*|sed 's/.*-//;s/\.list//'|sort -t_ -k 2 -n|head -1`"
+	    fi
+	    echo "Warning: $namever is not supported.  Using $gotnamever instead."
+	    listsrc="${listpfx}${gotnamever}.list"
+	fi
 	mkdir -p /etc/apt/sources.list.d
 	listdest=/etc/apt/sources.list.d/cvmfs-contrib.list
 	if [ -L $listdest ]; then
