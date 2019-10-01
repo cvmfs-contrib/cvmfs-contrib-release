@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.7
+Version:        1.8
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Tue Oct 01 2019 Dave Dykstra <dwd@fnal.gov>> - 1.8-1
+- Change Debian_10.0 to Debian_10
+
 * Wed Sep 25 2019 Dave Dykstra <dwd@fnal.gov>> - 1.7-1
 - Include Debian_10.0 in the Debian packaging, and remove Ubuntu_17.04
 - Fall back to a previous OS version when a version is not supported

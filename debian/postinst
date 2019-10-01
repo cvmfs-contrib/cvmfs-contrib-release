@@ -25,15 +25,16 @@ case "$1" in
 	. /etc/os-release
 	basename="`echo "$NAME"|awk '{print $1}'`"
 	basever="`echo "$VERSION_ID"|cut -d. -f1`"
+	subver=""
 	case "$basename" in
-	    Ubuntu) subver="04";;
-	    *)      subver="0";;
+	    Ubuntu) subver=".04";;
+	    Debian) if [ "$basever" -lt 10 ]; then subver=".0"; fi;;
 	esac
-	namever="${basename}_${basever}.${subver}"
+	namever="${basename}_${basever}${subver}"
 	listpfx="/usr/share/cvmfs-contrib-release/cvmfs-contrib-"
 	listsrc=${listpfx}${namever}.list
 	if [ ! -f $listsrc ]; then
-	    wantedver="${basever}.${subver}"
+	    wantedver="${basever}${subver}"
 	    gotver="`(echo $wantedver;ls ${listpfx}${basename}_* 2>/dev/null|sed 's/.*_//;s/\.list//')|sort -n|grep -B 1 "^$wantedver"|head -1`"
 	    if [ -n "$gotver" ] && [ "$gotver" != "$wantedver" ]; then
 		# falling back to an older version
