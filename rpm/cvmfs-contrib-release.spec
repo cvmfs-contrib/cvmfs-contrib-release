@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.9
+Version:        1.10
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Mon Jan 13 2020 Dave Dykstra <dwd@fnal.gov>> - 1.10-1
+- Update cvmfs-contrib.gpg with the new gpg key too.
+
 * Sat Jan 11 2020 Dave Dykstra <dwd@fnal.gov>> - 1.9-1
 - Replace expired gpg key.  This one expires 2022-03-22.
 
