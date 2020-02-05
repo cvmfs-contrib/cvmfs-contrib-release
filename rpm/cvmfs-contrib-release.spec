@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.10
+Version:        1.11
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,10 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Wed Feb 05 2020 Dave Dykstra <dwd@fnal.gov>> - 1.11-1
+- Add cvmfs-contrib-egi and cvmfs-contrib-egi-testing yum repos, disabled by
+  default.
+
 * Mon Jan 13 2020 Dave Dykstra <dwd@fnal.gov>> - 1.10-1
 - Update cvmfs-contrib.gpg with the new gpg key too.
 
