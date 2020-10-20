@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.11
+Version:        1.12
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -44,7 +44,7 @@ install -pm 644 obs-signing-key.pub \
 #   be used, so can't use $releasevar inside .repo file.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 mkdir -p $RPM_BUILD_ROOT%{_datarootdir}/%{name}
-for RHEL in 6 7; do
+for RHEL in 6 7 8; do
   # make it mode 444 so hopefully admins won't accidentally edit it
   #  without breaking the symlink and making a copy
   bash -c "install -m 444 <(sed s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo) \
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Mon Oct 19 2020 Dave Dykstra <dwd@fnal.gov>> - 1.12-1
+- Add el8 support.
+
 * Wed Feb 05 2020 Dave Dykstra <dwd@fnal.gov>> - 1.11-1
 - Add cvmfs-contrib-egi and cvmfs-contrib-egi-testing yum repos, disabled by
   default.
