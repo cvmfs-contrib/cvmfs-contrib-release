@@ -21,7 +21,7 @@ set -e
 case "$1" in
     configure)
 	# select relevant .list file now, so one deb package can work
-	#  on all the supported releaes
+	#  on all the supported releases
 	. /etc/os-release
 	basename="`echo "$NAME"|awk '{print $1}'`"
 	basever="`echo "$VERSION_ID"|cut -d. -f1`"
