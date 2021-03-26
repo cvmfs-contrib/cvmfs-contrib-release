@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.12
+Version:        1.13
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Fri Mar 26 2021 Dave Dykstra <dwd@fnal.gov>> - 1.13-1
+- Add Ubuntu_20.04 support to debian release.
+
 * Mon Oct 19 2020 Dave Dykstra <dwd@fnal.gov>> - 1.12-1
 - Add el8 support.
 

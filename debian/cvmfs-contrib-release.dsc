@@ -1,7 +1,7 @@
 # created by obsupdate.sh, do not edit by hand
-Debtransform-Tar: cvmfs-contrib-release-1.12.tar.gz
+Debtransform-Tar: cvmfs-contrib-release-1.13.tar.gz
 Format: 1.0
-Version: 1.12.1
+Version: 1.13.1
 Binary: cvmfs-contrib-release
 Source: cvmfs-contrib-release
 Maintainer: Dave Dykstra <dwd@fnal.gov>
