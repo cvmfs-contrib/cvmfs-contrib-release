@@ -75,6 +75,7 @@ fi
 
 %changelog
 * Fri Mar 26 2021 Dave Dykstra <dwd@fnal.gov>> - 1.13-1
+- Add 'x' prefix on Ubuntu repository download directories.
 - Add Ubuntu_20.04 support to debian release.
 
 * Mon Oct 19 2020 Dave Dykstra <dwd@fnal.gov>> - 1.12-1
