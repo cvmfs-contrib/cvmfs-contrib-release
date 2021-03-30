@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.13
+Version:        1.14
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Tue Mar 30 2021 Dave Dykstra <dwd@fnal.gov>> - 1.14-1
+- Simplify OBS build by using 'debian' directory but with 1.0 source format.
+
 * Fri Mar 26 2021 Dave Dykstra <dwd@fnal.gov>> - 1.13-1
 - Add 'x' prefix on Ubuntu repository download directories.
 - Add Ubuntu_20.04 support to debian release.
