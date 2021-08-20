@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.14
+Version:        1.15
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -74,6 +74,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Fri Aug 20 2021 Dave Dykstra <dwd@fnal.gov>> - 1.15-1
+- Add Debian_11 support to debian release.
+
 * Tue Mar 30 2021 Dave Dykstra <dwd@fnal.gov>> - 1.14-1
 - Simplify OBS build by using 'debian' directory but with 1.0 source format.
 
