@@ -1,7 +1,7 @@
 Name:           cvmfs-contrib-release
 Version:        1.16
 # The release_prefix macro is used in the OBS prjconf, don't change its name
-%define release_prefix 1
+%define release_prefix 2
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
 Release:        %{release_prefix}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
@@ -68,7 +68,8 @@ if [ -L $REPO ]; then
     rm $REPO
 fi
 if [ ! -e $REPO ]; then
-    EL="`grep ^VERSION_ID= /etc/os-release|cut -d. -f1`"
+    . /etc/os-release
+    EL="`echo $VERSION_ID|cut -d. -f1`"
     if [ -z "$EL" ]; then
         echo "Could not find OS version from /etc/os-release" >&2
         exit 2
@@ -77,6 +78,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Mon Dec 13 2021 Dave Dykstra <dwd@fnal.gov>> - 1.16-2
+- Fix scripting around selecting el OS version.
+
 * Mon Dec 13 2021 Dave Dykstra <dwd@fnal.gov>> - 1.16-1
 - Remove requirement for /usr/bin/lsb_release and remove support for el6.
 - Remove Debian_8.0 support.
