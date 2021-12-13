@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.15
+Version:        1.16
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -19,8 +19,6 @@ Source:         %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
-
-Requires:       /usr/bin/lsb_release
 
 %description
 This package contains the CernVM FileSystem Contrib packages
@@ -44,7 +42,7 @@ install -pm 644 obs-signing-key.pub \
 #   be used, so can't use $releasevar inside .repo file.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 mkdir -p $RPM_BUILD_ROOT%{_datarootdir}/%{name}
-for RHEL in 6 7 8; do
+for RHEL in 7 8; do
   # make it mode 444 so hopefully admins won't accidentally edit it
   #  without breaking the symlink and making a copy
   bash -c "install -m 444 <(sed s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo) \
@@ -70,10 +68,19 @@ if [ -L $REPO ]; then
     rm $REPO
 fi
 if [ ! -e $REPO ]; then
-    ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el`lsb_release -rs|cut -d. -f1`.repo %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
+    EL="`grep ^VERSION_ID= /etc/os-release|cut -d. -f1`"
+    if [ -z "$EL" ]; then
+        echo "Could not find OS version from /etc/os-release" >&2
+        exit 2
+    fi
+    ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el$EL.repo %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
 fi
 
 %changelog
+* Mon Dec 13 2021 Dave Dykstra <dwd@fnal.gov>> - 1.16-1
+- Remove requirement for /usr/bin/lsb_release and remove support for el6.
+- Remove Debian_8.0 support.
+
 * Fri Aug 20 2021 Dave Dykstra <dwd@fnal.gov>> - 1.15-1
 - Add Debian_11 support to debian release.
 
