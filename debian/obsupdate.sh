@@ -5,6 +5,7 @@
 
 HERE="`dirname $0`"
 ME="`basename $0`"
+cd $HERE
 PKG="`sed -n 's/^Source: //p' control`"
 SPECFILE="../rpm/$PKG.spec"
 VERSION="$(grep ^Version: $SPECFILE | awk '{print $2}')"
