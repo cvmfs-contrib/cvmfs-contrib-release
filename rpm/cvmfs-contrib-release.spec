@@ -1,7 +1,7 @@
 Name:           cvmfs-contrib-release
-Version:        1.16
+Version:        1.17
 # The release_prefix macro is used in the OBS prjconf, don't change its name
-%define release_prefix 2
+%define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
 Release:        %{release_prefix}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
@@ -78,6 +78,12 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Wed Mar 23 2022 Dave Dykstra <dwd@fnal.gov> - 1.17-1
+- Replace expired gpg key.  This one expires 2024-05-31.  It was extended
+  with the command "osc signkey --extend home:cvmfs", downloaded with
+  "osc signkey home:cvmfs", put into obs-signing-key.pub, and imported with
+  "gpg --keyring $PWD/cvmfs-contrib.gpg --no-default-keyring --import".
+
 * Mon Dec 13 2021 Dave Dykstra <dwd@fnal.gov>> - 1.16-2
 - Fix scripting around selecting el OS version.
 
