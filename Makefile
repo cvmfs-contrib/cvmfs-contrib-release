@@ -7,7 +7,7 @@ all: # nothing to build
 
 install:
 	mkdir -p ${DESTDIR}/usr/share/cvmfs-contrib-release
-	for OSVER in Ubuntu_14.04 Ubuntu_16.04 Ubuntu_18.04 Ubuntu_20.04 Debian_9.0 Debian_10 Debian_11; do \
+	for OSVER in Ubuntu_20.04 Ubuntu_22.04 Debian_10 Debian_11 Debian_12; do \
 	    case $$OSVER in \
 		Ubuntu*) REPO="x$$OSVER";; \
 		*) REPO="$$OSVER";; \
