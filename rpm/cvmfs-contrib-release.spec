@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.18
+Version:        1.19
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -83,6 +83,10 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Fri Jun 30 2023 Dave Dykstra <dwd@fnal.gov> - 1.19-1
+- Removed Ubuntu_14.04, Ubuntu_16.04, Ubuntu_18.04, and Debian_9.0 and
+  added Ubuntu_22.04 and Debian_12 to the debian release.
+
 * Thu Jun 29 2023 Dave Dykstra <dwd@fnal.gov> - 1.18-1
 - Change CentOS_8 to AlmaLinux_8 and add AlmaLinux_9.
 
