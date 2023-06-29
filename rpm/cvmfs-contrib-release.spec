@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.17
+Version:        1.18
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -42,10 +42,15 @@ install -pm 644 obs-signing-key.pub \
 #   be used, so can't use $releasevar inside .repo file.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 mkdir -p $RPM_BUILD_ROOT%{_datarootdir}/%{name}
-for RHEL in 7 8; do
+for RHEL in 7 8 9; do
   # make it mode 444 so hopefully admins won't accidentally edit it
   #  without breaking the symlink and making a copy
-  bash -c "install -m 444 <(sed s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo) \
+  if [ $RHEL = 7 ]; then
+    DISTRO=CentOS
+  else
+    DISTRO=AlmaLinux
+  fi
+  bash -c "install -m 444 <(sed -e s/{distro}/$DISTRO/ -e s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo.in) \
       $RPM_BUILD_ROOT%{_datarootdir}/%{name}/cvmfs-contrib-el$RHEL.repo"
 done
 # this is just because a default is needed for %ghost files; the real
@@ -78,6 +83,9 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Thu Jun 29 2023 Dave Dykstra <dwd@fnal.gov> - 1.18-1
+- Change CentOS_8 to AlmaLinux_8 and add AlmaLinux_9.
+
 * Wed Mar 23 2022 Dave Dykstra <dwd@fnal.gov> - 1.17-1
 - Replace expired gpg key.  This one expires 2024-05-31.  It was extended
   with the command "osc signkey --extend home:cvmfs", downloaded with
