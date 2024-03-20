@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.19
+Version:        1.20
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -83,6 +83,14 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Wed Mar 20 2024 Dave Dykstra <dwd@fnal.gov> - 1.20-1
+- Replace expired gpg key.  This one expires 2026-05-29.  It was extended
+  with the command "osc signkey --extend home:cvmfs", downloaded with
+  "osc signkey home:cvmfs", put into obs-signing-key.pub (after removing
+  extraneous html before and after it), and imported with
+  "gpg --keyring $PWD/cvmfs-contrib.gpg --no-default-keyring --import".
+- Added Ubuntu_24.04 to the debian release.
+
 * Fri Jun 30 2023 Dave Dykstra <dwd@fnal.gov> - 1.19-1
 - Removed Ubuntu_14.04, Ubuntu_16.04, Ubuntu_18.04, and Debian_9.0 and
   added Ubuntu_22.04 and Debian_12 to the debian release.
