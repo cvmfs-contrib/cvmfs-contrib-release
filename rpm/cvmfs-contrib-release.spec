@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.20
+Version:        1.21
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -42,16 +42,20 @@ install -pm 644 obs-signing-key.pub \
 #   be used, so can't use $releasevar inside .repo file.
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 mkdir -p $RPM_BUILD_ROOT%{_datarootdir}/%{name}
-for RHEL in 7 8 9; do
+for OSNUM in 7 8 9 10 41 42; do
   # make it mode 444 so hopefully admins won't accidentally edit it
   #  without breaking the symlink and making a copy
-  if [ $RHEL = 7 ]; then
+  DIST="el$OSNUM"
+  if [ $OSNUM = 7 ]; then
     DISTRO=CentOS
+  elif [ "$OSNUM" -gt 40 ]; then
+    DISTRO=Fedora
+    DIST=fedora$OSNUM
   else
     DISTRO=AlmaLinux
   fi
-  bash -c "install -m 444 <(sed -e s/{distro}/$DISTRO/ -e s/{rhel}/$RHEL/ rpm/cvmfs-contrib.repo.in) \
-      $RPM_BUILD_ROOT%{_datarootdir}/%{name}/cvmfs-contrib-el$RHEL.repo"
+  bash -c "install -m 444 <(sed -e s/{distro}/$DISTRO/ -e s/{osnum}/$OSNUM/ rpm/cvmfs-contrib.repo.in) \
+      $RPM_BUILD_ROOT%{_datarootdir}/%{name}/cvmfs-contrib-$DIST.repo"
 done
 # this is just because a default is needed for %ghost files; the real
 #   one is installed in the %post rule
@@ -74,15 +78,23 @@ if [ -L $REPO ]; then
 fi
 if [ ! -e $REPO ]; then
     . /etc/os-release
-    EL="`echo $VERSION_ID|cut -d. -f1`"
-    if [ -z "$EL" ]; then
+    OSNUM="`echo $VERSION_ID|cut -d. -f1`"
+    if [ -z "$OSNUM" ]; then
         echo "Could not find OS version from /etc/os-release" >&2
         exit 2
     fi
-    ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el$EL.repo %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
+    if [[ "$NAME" == *Fedora* ]]; then
+        DIST="fedora$OSNUM"
+    else
+        DIST="el$OSNUM"
+    fi
+    ln -s %{_datarootdir}/%{name}/cvmfs-contrib-$DIST.repo %{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
 fi
 
 %changelog
+* Tue Sep  2 2025 Dave Dykstra <dwd@fnal.gov> - 1.21-1
+- Add support for AlmaLinux 10 and Fedora 41 and 42.
+
 * Wed Mar 20 2024 Dave Dykstra <dwd@fnal.gov> - 1.20-1
 - Replace expired gpg key.  This one expires 2026-05-29.  It was extended
   with the command "osc signkey --extend home:cvmfs", downloaded with
