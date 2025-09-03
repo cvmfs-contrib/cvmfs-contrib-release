@@ -2,7 +2,7 @@ Name:           cvmfs-contrib-release
 Version:        1.21
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
-# %{?dist} is left off intentionally; this rpm works on multiple OS releases
+# %%{?dist} is left off intentionally; this rpm works on multiple OS releases
 Release:        %{release_prefix}
 Summary:        CernVM FileSystem Contrib packages yum repository configuration
 
@@ -11,8 +11,8 @@ License:        GPL
 URL:            http://github.com/cvmfs/cvmfs-contrib-release
 
 # download with:
-# $ curl -L -o cvmfs-contrib-release-%{version}.tar.gz \
-#   https://github.com/cvmfs/cvmfs-contrib-release/archive/v%{version}.tar.gz
+# $ curl -L -o cvmfs-contrib-release-%%{version}.tar.gz \
+#   https://github.com/cvmfs/cvmfs-contrib-release/archive/v%%{version}.tar.gz
 
 Source:         %{name}-%{version}.tar.gz
 
@@ -57,8 +57,8 @@ for OSNUM in 7 8 9 10 41 42; do
   bash -c "install -m 444 <(sed -e s/{distro}/$DISTRO/ -e s/{osnum}/$OSNUM/ rpm/cvmfs-contrib.repo.in) \
       $RPM_BUILD_ROOT%{_datarootdir}/%{name}/cvmfs-contrib-$DIST.repo"
 done
-# this is just because a default is needed for %ghost files; the real
-#   one is installed in the %post rule
+# this is just because a default is needed for %%ghost files; the real
+#   one is installed in the %%post rule
 ln -s %{_datarootdir}/%{name}/cvmfs-contrib-el%{rhel}.repo $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/cvmfs-contrib.repo
 
 %clean
