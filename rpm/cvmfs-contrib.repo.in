@@ -4,8 +4,8 @@
 [cvmfs-contrib]
 name=CernVM Filesystem Contributions
 type=rpm-md
-# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib/{distro}_{rhel}/
-baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib/{distro}_{rhel}/
+# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib/{distro}_{osnum}/
+baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib/{distro}_{osnum}/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 enabled=1
@@ -13,8 +13,8 @@ enabled=1
 [cvmfs-contrib-testing]
 name=CernVM Filesystem Contributions testing
 type=rpm-md
-# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/{distro}_{rhel}/
-baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-testing/{distro}_{rhel}/
+# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/{distro}_{osnum}/
+baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-testing/{distro}_{osnum}/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 enabled=0
@@ -22,8 +22,8 @@ enabled=0
 [cvmfs-contrib-egi]
 name=CernVM Filesystem Contributions for EGI
 type=rpm-md
-# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-egi/{distro}_{rhel}/
-baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-egi/{distro}_{rhel}/
+# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-egi/{distro}_{osnum}/
+baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-egi/{distro}_{osnum}/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 enabled=0
@@ -31,8 +31,8 @@ enabled=0
 [cvmfs-contrib-egi-testing]
 name=CernVM Filesystem Contributions for EGI testing
 type=rpm-md
-# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-egi-testing/{distro}_{rhel}/
-baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-egi-testing/{distro}_{rhel}/
+# browsable alternate at http://download.opensuse.org/repositories/home:/cvmfs:/contrib-egi-testing/{distro}_{osnum}/
+baseurl=http://downloadcontent.opensuse.org/repositories/home:/cvmfs:/contrib-egi-testing/{distro}_{osnum}/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CVMFS-CONTRIB
 enabled=0
