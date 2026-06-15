@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.21
+Version:        1.22
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %%{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -92,6 +92,10 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Mon Jun 15 2026 Dave Dykstra <dwd@fnal.gov> - 1.22-1
+- Switch to using opensuse mirrors intead of the master download server.
+- Add Debian 13, Ubuntu 26.04 and remove Debian 10, Ubuntu 20.04 support.
+
 * Tue Sep  2 2025 Dave Dykstra <dwd@fnal.gov> - 1.21-1
 - Add support for AlmaLinux 10 and Fedora 41 and 42.
 
