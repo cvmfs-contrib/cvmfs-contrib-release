@@ -1,5 +1,5 @@
 Name:           cvmfs-contrib-release
-Version:        1.22
+Version:        1.23
 # The release_prefix macro is used in the OBS prjconf, don't change its name
 %define release_prefix 1
 # %%{?dist} is left off intentionally; this rpm works on multiple OS releases
@@ -92,6 +92,13 @@ if [ ! -e $REPO ]; then
 fi
 
 %changelog
+* Tue Jun 16 2026 Dave Dykstra <dwd@fnal.gov> - 1.23-1
+- Replace expired gpg key.  It had already been renewed in OBS.  Downloaded with
+  wget -qO obs-signing-key.pub https://build.opensuse.org/projects/home:cvmfs/signing_keys/download?kind=gpg
+  and converted to gpg binary format with
+  gpg --yes --dearmor -o cvmfs-contrib.gpg obs-signing-key.pub
+- Updated debian signing key to be in /usr/share/keyrings.
+
 * Mon Jun 15 2026 Dave Dykstra <dwd@fnal.gov> - 1.22-1
 - Switch to using opensuse mirrors intead of the master download server.
 - Add Debian 13, Ubuntu 26.04 and remove Debian 10, Ubuntu 20.04 support.

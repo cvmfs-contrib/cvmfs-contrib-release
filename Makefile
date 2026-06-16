@@ -13,10 +13,10 @@ install:
 		*) REPO="$$OSVER";; \
 	    esac; \
 	    (echo "# Do not edit.  Remove symlink and make a copy in /etc/apt/sources.list.d"; \
-	    echo "deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$$REPO ./"; \
-	    echo "# deb http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/$$REPO ./"; \
+	    echo "deb [signed-by=/usr/share/keyrings/cvmfs-contrib.gpg] http://download.opensuse.org/repositories/home:/cvmfs:/contrib/$$REPO ./"; \
+	    echo "# deb [signed-by=/usr/share/keyrings/cvmfs-contrib.gpg] http://download.opensuse.org/repositories/home:/cvmfs:/contrib-testing/$$REPO ./"; \
 	    ) >${DESTDIR}/usr/share/cvmfs-contrib-release/cvmfs-contrib-$$OSVER.list; \
 	done
-	mkdir -p ${DESTDIR}/etc/apt/trusted.gpg.d
-	cp cvmfs-contrib.gpg ${DESTDIR}/etc/apt/trusted.gpg.d/
+	mkdir -p ${DESTDIR}/usr/share/keyrings
+	cp cvmfs-contrib.gpg ${DESTDIR}/usr/share/keyrings
 	mkdir -p ${DESTDIR}/etc/apt/sources.list.d
