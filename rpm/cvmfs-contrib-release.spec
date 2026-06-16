@@ -94,9 +94,10 @@ fi
 %changelog
 * Tue Jun 16 2026 Dave Dykstra <dwd@fnal.gov> - 1.23-1
 - Replace expired gpg key.  It had already been renewed in OBS.  Downloaded with
-  wget -qO obs-signing-key.pub https://build.opensuse.org/projects/home:cvmfs/signing_keys/download?kind=gpg
+   wget -qO obs-signing-key.pub https://build.opensuse.org/projects/home:cvmfs/signing_keys/download?kind=gpg
   and converted to gpg binary format with
-  gpg --yes --dearmor -o cvmfs-contrib.gpg obs-signing-key.pub
+   gpg --yes --dearmor -o cvmfs-contrib.gpg obs-signing-key.pub
+  This key expires 2028-07-24.
 - Updated debian signing key to be in /usr/share/keyrings.
 
 * Mon Jun 15 2026 Dave Dykstra <dwd@fnal.gov> - 1.22-1
